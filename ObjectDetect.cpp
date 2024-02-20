@@ -45,11 +45,15 @@ int main(int argc, char** argv )
     split(img_HSV, imgHSV); //imgHSV contains separated channels
 
     Mat temp, ThrH, ThrS, SelectedColour;
+    // --ALEX -- ask user to insert saturation
+    int lowerSat, upperSat;
+    printf("Please insert lower and upper Saturation Threshold:");
+    scanf("%d %d", &lowerSat, &upperSat);
     int maxval = 255; //binary output High
     inRange(imgHSV[0], lower_thresh, upper_thresh, ThrH); //Get pixels in Hue colour range
       namedWindow("Hue Thresholded", WINDOW_NORMAL );
       imshow("Hue Thresholded", ThrH); //Hue
-    inRange(imgHSV[1], 50, 255, ThrS); //Use Sat to keep only pixels with dominant colour
+    inRange(imgHSV[1], lowerSat, upperSat, ThrS); //Use Sat to keep only pixels with dominant colour
       namedWindow("Saturation Thresholded", WINDOW_NORMAL );
       imshow("Saturation Thresholded", ThrS); //Hue
       waitKey(0);
