@@ -65,20 +65,22 @@ int main(int argc, char** argv )
       destroyWindow("Hue Thresholded");
       destroyWindow("Saturation Thresholded");
 
-      exit(0); //STEP 1 - COMMENT TO CONTINUE PROGRAM
+    //  exit(0); //STEP 1 - COMMENT TO CONTINUE PROGRAM
 
      //OPENING operation to remove tiny regions
      Mat OpenedImg;
      // Create mask element for the erode/dilate process as a 3x3 pix square
      // this will kill regions with any dimension smaller than 6 pixels
      Mat erode_mask = getStructuringElement(MORPH_RECT,Size(3,3));
+    //  dilate(SelectedColour,OpenedImg,erode_mask);
+    //  erode(OpenedImg,OpenedImg,erode_mask);
      erode(SelectedColour,OpenedImg,erode_mask);
      dilate(OpenedImg,OpenedImg,erode_mask);
       imshow("Opened image", OpenedImg); //Tiny regions removed
       waitKey(0);
      destroyWindow("Final color highlighting");
 
-     exit(0); //STEP 2 - COMMENT TO CONTINUE PROGRAM
+    // exit(0); //STEP 2 - COMMENT TO CONTINUE PROGRAM
 
      //Do labelling and extract regions locations
      Mat labelled_img;
