@@ -111,5 +111,27 @@ int main(int argc, char** argv )
     //NOW USE THE INFORMATION ABOUT THE BLOBS (area, locations, centroids) TO KEEP ONLY THE BOX!
     //YOUR CODE HERE
 
+    
+    int area_threshold = 500;  
+    int width_threshold = 50; 
+
+    for (int i = 0; i < n; i++)
+    {
+        Rect r = locations[i];
+        Point2f p = centroids[i];
+
+        // Check if the blob meets criteria
+        if (areas[i] >= area_threshold || r.width >= width_threshold) 
+        {
+            printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.1f\t%.1f\n", i, labels[i], areas[i], r.x, r.y, r.width, r.height, p.x, p.y);
+
+            // Optional: Draw a rectangle around the blob on a copy of the image
+            Mat displayImage = image.clone();  // Create a copy if you want to draw
+            rectangle(displayImage, r, Scalar(0, 255, 0), 2); // Green rectangle
+            imshow("Filtered Blobs", displayImage); 
+            waitKey(0); 
+        }
+    }
+
     return 0;
 }
