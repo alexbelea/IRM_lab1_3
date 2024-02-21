@@ -111,21 +111,22 @@ int main(int argc, char** argv )
     //NOW USE THE INFORMATION ABOUT THE BLOBS (area, locations, centroids) TO KEEP ONLY THE BOX!
     //YOUR CODE HERE
 
-    
-    int area_threshold = 500;  
-    int width_threshold = 50; 
+    //edit threshold:
+    int areaThr = 6000;  
+    int widthThr = 4; 
 
+    // run the for loop for each blob (n contains the number of blobs)
     for (int i = 0; i < n; i++)
-    {
+    {   // create a rectangle with the 
         Rect r = locations[i];
         Point2f p = centroids[i];
 
-        // Check if the blob meets criteria
-        if (areas[i] >= area_threshold || r.width >= width_threshold) 
-        {
-            printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.1f\t%.1f\n", i, labels[i], areas[i], r.x, r.y, r.width, r.height, p.x, p.y);
+        // Check each blob for the criteria requested
+        if ( (areas[i] >= areaThr) || (r.width >= widthThr)  ) 
+        {   // Use the above printf line to reprint new blobs for statistics
+            printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.1f\t%.1f\n",i,labels[i],areas[i],r.x,r.y,r.width,r.height,p.x,p.y);
 
-            // Optional: Draw a rectangle around the blob on a copy of the image
+            // put a rectangle around the selected blob
             Mat displayImage = image.clone();  // Create a copy if you want to draw
             rectangle(displayImage, r, Scalar(0, 255, 0), 2); // Green rectangle
             imshow("Filtered Blobs", displayImage); 
