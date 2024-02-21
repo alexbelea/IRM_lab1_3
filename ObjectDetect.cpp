@@ -113,9 +113,11 @@ int main(int argc, char** argv )
 
     //edit threshold:
     int areaThr = 6000;  
-    int widthThr = 4; 
+    int widthThr = 170; 
     Rect r;
     Point2f p;
+    // will add the rectangle to the original image
+    Mat displayImage = image.clone();
     // run the for loop for each blob (n contains the number of blobs)
     for (int i = 0; i < n; i++)
     {  
@@ -124,17 +126,15 @@ int main(int argc, char** argv )
 
         // Check each blob for the criteria requested
         if ( (areas[i] >= areaThr) || (r.width >= widthThr)  ) 
-        {   // Use the above printf line to reprint new blobs for statistics
-            printf("The following blob was found to match given criteria:");
+        {   // Use the above printf line to reprint selected blobs
+            printf("The following blob was found to match given criteria:\n");
+            printf("Blob\tLabel\tArea\tXmin\tYmin\tWidth\tHeight\tXcog\tYcog\n");
             printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t%.1f\t%.1f\n",i,labels[i],areas[i],r.x,r.y,r.width,r.height,p.x,p.y);
-
-
+            rectangle(displayImage, r, Scalar(0, 255, 0), 3); //  rectangle
+            
         }
     }
-    // put a rectangle around the selected blob
-    Mat displayImage = image.clone();  // Create a copy if you want to draw
-    rectangle(displayImage, r, Scalar(0, 255, 0), 2); // Green rectangle
     imshow("Filtered Blobs", displayImage); 
-    waitKey(0); 
+    waitKey(0);
     return 0;
 }
