@@ -37,7 +37,7 @@ CMakeFiles/
 Makefile
 cmake_install.cmake
 #VS CODE
-.vscode
+#.vscode
 
 #the binary
 LineDetect
